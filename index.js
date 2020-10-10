@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser')
-
+const perekrutRouter = require('./src/routes/perekrut')
 const { PORT } = require('./src/helpers/env')
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.static('src/uploads'))
 app.use(cors())
 
 // app.use('/api/v1/pekerja', router)
-// app.use('/api/v1/perekrut', router)
+app.use('/api/v1/perekrut', perekrutRouter)
 
 
 app.listen(PORT, () => {
