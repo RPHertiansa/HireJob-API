@@ -14,7 +14,7 @@ const pekerja = {
   },
   login: (data) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM pekerja WHERE username = '${data.username}'`, (err, result) => {
+      db.query(`SELECT * FROM pekerja WHERE emailpekerja = '${data.emailpekerja}'`, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
@@ -37,7 +37,7 @@ const pekerja = {
   },
   updateRefreshToken: (token, id) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET refreshToken='${token}' WHERE iduser='${id}'`,
+      db.query(`UPDATE pekerja SET refreshToken='${token}' WHERE idpekerja='${id}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))

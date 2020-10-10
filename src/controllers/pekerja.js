@@ -108,20 +108,18 @@ const pekerja = {
     try {
       const body = req.body
       pekerjaModel.login(body)
-
         .then(async (result) => {
           const userData = result[0]
-          const hashWord = userData.password
+          const hashWord = userData.passwordpekerja
           const userRefreshToken = userData.refreshToken
-          const correct = await bcrypt.compare(body.password, hashWord)
-
+          const correct = await bcrypt.compare(body.passwordpekerja, hashWord)
+          
           if (correct) {
-            if (userData.active === 1) {
+            if (userData.is_active === 1) {
               jwt.sign(
                 {
-                  email: userData.email,
-                  username: userData.username,
-                  level: userData.level
+                  emailpekerja: userData.emailpekerja,
+                  namapekerja: userData.namapekerja
                 },
                 JWT_KEY,
                 { expiresIn: 120 },
@@ -131,15 +129,14 @@ const pekerja = {
                     console.log(err)
                   } else {
                     if (userRefreshToken === null) {
-                      const id = userData.iduser
+                      const idpekerja = userData.idpekerja
                       const refreshToken = jwt.sign(
-                        { id }, JWT_KEY)
-                      pekerjaModel.updateRefreshToken(refreshToken, id)
+                        { idpekerja }, JWT_KEY)
+                      pekerjaModel.updateRefreshToken(refreshToken, idpekerja)
                         .then(() => {
                           const data = {
-                            iduser: userData.iduser,
-                            username: userData.username,
-                            level: userData.level,
+                            idpekerja: userData.idpekerja,
+                            namapekerja: userData.namapekerja,
                             token: token,
                             refreshToken: refreshToken
                           }
@@ -149,9 +146,8 @@ const pekerja = {
                         })
                     } else {
                       const data = {
-                        iduser: userData.iduser,
-                        username: userData.username,
-                        level: userData.level,
+                        idpekerja: userData.idpekerja,
+                        namapekerja: userData.namapekerja,
                         token: token,
                         refreshToken: userRefreshToken
                       }
