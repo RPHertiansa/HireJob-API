@@ -65,7 +65,7 @@ const pekerja = {
           })
 
           res.json({
-              message: `Success Registration, Please activate your email`
+            message: `Success Registration, Please activate your email`
           })
         })
         .catch((err) => {
@@ -113,7 +113,7 @@ const pekerja = {
           const hashWord = userData.passwordpekerja
           const userRefreshToken = userData.refreshToken
           const correct = await bcrypt.compare(body.passwordpekerja, hashWord)
-          
+
           if (correct) {
             if (userData.is_active === 1) {
               jwt.sign(
@@ -175,12 +175,11 @@ const pekerja = {
     pekerjaModel.checkRefreshToken(refreshToken)
       .then((result) => {
         if (result.length >= 1) {
-          const user = result[0];
+          const pekerja = result[0];
           const newToken = jwt.sign(
             {
-              email: user.email,
-              username: user.username,
-              level: user.level
+              emailpekerja: pekerja.emailpekerja,
+              namapekerja: pekerja.namapekerja
             },
             JWT_KEY,
             { expiresIn: 3600 }
@@ -309,7 +308,6 @@ const pekerja = {
   },
   getAll: (req, res) => {
     try {
-      const body = req.params.body
       pekerjaModel.getAll()
         .then((result) => {
           success(res, result, 'Here are the users that data you requested')
@@ -323,10 +321,10 @@ const pekerja = {
   },
   getDetail: (req, res) => {
     try {
-      const iduser = req.params.iduser
-      pekerjaModel.getDetail(iduser)
+      const idpekerja = req.params.idpekerja
+      pekerjaModel.getDetail(idpekerja)
         .then((result) => {
-          success(res, result, `Here is the data of users with id ${iduser}`)
+          success(res, result, `Here is the data of users with id ${idpekerja}`)
         })
         .catch((err) => {
           failed(res, [], err.message)
@@ -370,19 +368,19 @@ const pekerja = {
             failed(res, [], err)
           }
         } else {
-          const iduser = req.params.iduser
+          const idpekerja = req.params.idpekerja
           const body = req.body
-          pekerjaModel.getDetail(iduser)
+          pekerjaModel.getDetail(idpekerja)
             .then((result) => {
-              const oldImg = result[0].image
-              body.image = !req.file ? oldImg : req.file.filename
-              if (body.image !== oldImg) {
+              const oldImg = result[0].imagepekerja
+              body.imagepekerja = !req.file ? oldImg : req.file.filename
+              if (body.imagepekerja !== oldImg) {
                 if (oldImg !== '404.png') {
                   fs.unlink(`src/uploads/${oldImg}`, (err) => {
                     if (err) {
                       failed(res, [], err.message)
                     } else {
-                      pekerjaModel.update(body, iduser)
+                      pekerjaModel.update(body, idpekerja)
                         .then((result) => {
                           success(res, result, 'Update success')
                         })
@@ -392,7 +390,7 @@ const pekerja = {
                     }
                   })
                 } else {
-                  pekerjaModel.update(body, iduser)
+                  pekerjaModel.update(body, idpekerja)
                     .then((result) => {
                       success(res, result, 'Update success')
                     })
@@ -401,7 +399,7 @@ const pekerja = {
                     })
                 }
               } else {
-                pekerjaModel.update(body, iduser)
+                pekerjaModel.update(body, idpekerja)
                   .then((result) => {
                     success(res, result, 'Update success')
                   })
@@ -418,14 +416,14 @@ const pekerja = {
   },
   delete: (req, res) => {
     try {
-      const iduser = req.params.iduser
-      pekerjaModel.getDetail(iduser)
+      const idpekerja = req.params.idpekerja
+      pekerjaModel.getDetail(idpekerja)
         .then((result) => {
-          const image = result[0].image
+          const image = result[0].imagepekerja
           if (image === '404.png') {
-            pekerjaModel.delete(iduser)
+            pekerjaModel.delete(idpekerja)
               .then((result) => {
-                success(res, result, `User with id=${iduser} is deleted!`)
+                success(res, result, `User with id=${idpekerja} is deleted!`)
               })
               .catch((err) => {
                 failed(res, [], err.message)
@@ -435,9 +433,9 @@ const pekerja = {
               if (err) {
                 failed(res, [], err.message)
               } else {
-                pekerjaModel.delete(iduser)
+                pekerjaModel.delete(idpekerja)
                   .then((result) => {
-                    success(res, result, `User with id ${iduser} is deleted!`)
+                    success(res, result, `User with id ${idpekerja} is deleted!`)
                   })
                   .catch((err) => {
                     failed(res, [], err.message)

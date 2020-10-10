@@ -85,7 +85,7 @@ const pekerja = {
   },
   checkRefreshToken: (refreshToken) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT *FROM pekerja WHERE refreshToken='${refreshToken}'`,
+      db.query(`SELECT * FROM pekerja WHERE refreshToken='${refreshToken}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))
@@ -94,10 +94,11 @@ const pekerja = {
           }
         })
     })
+    
   },
   getAll: () => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM pekerja INNER JOIN location ON pekerja.idlocation = location.idlocation`, (err, result) => {
+      db.query(`SELECT * FROM pekerja`, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
@@ -106,9 +107,9 @@ const pekerja = {
       })
     })
   },
-  getDetail: (iduser) => {
+  getDetail: (idpekerja) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM pekerja INNER JOIN location ON pekerja.idlocation = location.idlocation WHERE iduser ='${iduser}'`, (err, result) => {
+      db.query(`SELECT * FROM pekerja WHERE idpekerja ='${idpekerja}'`, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
@@ -128,9 +129,9 @@ const pekerja = {
       })
     })
   },
-  update: (data, iduser) => {
+  update: (data, idpekerja) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET ? WHERE iduser=?`, [data, iduser], (err, result) => {
+      db.query(`UPDATE pekerja SET ? WHERE idpekerja=?`, [data, idpekerja], (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
@@ -139,9 +140,9 @@ const pekerja = {
       })
     })
   },
-  delete: (iduser) => {
+  delete: (idpekerja) => {
     return new Promise((resolve, reject) => {
-      db.query(`DELETE FROM pekerja WHERE iduser = '${iduser}'`, (err, result) => {
+      db.query(`DELETE FROM pekerja WHERE idpekerja = '${idpekerja}'`, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
