@@ -1,6 +1,6 @@
 const db = require('../configs/db');
 
-const perekrut = {
+const pekerja = {
     register: (data) => {
         return new Promise((resolve, reject) => {
             db.query(`INSERT INTO pekerja SET ?`, data, (err, result) => {
@@ -177,4 +177,4 @@ const perekrut = {
         })
     }
 };
-module.exports = perekrut
+module.exports = pekerja
