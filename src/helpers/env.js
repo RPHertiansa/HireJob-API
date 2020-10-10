@@ -9,5 +9,6 @@ module.exports = {
     JWT_KEY     : process.env.JWT_KEY,
     myemail     : process.env.MYEMAIL,
     mypassword  : process.env.MYPASSWORD,
-    url         : process.env.URL
+    url         : process.env.URL,
+    urlforgot   : process.env.URL_FORGOT
 }

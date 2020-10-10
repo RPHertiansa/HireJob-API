@@ -49,7 +49,7 @@ const pekerja = {
   },
   newPassword: (password, userkey) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET password='${password}' WHERE userkey='${userkey}'`,
+      db.query(`UPDATE pekerja SET passwordpekerja='${password}' WHERE userkey='${userkey}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))
@@ -61,7 +61,7 @@ const pekerja = {
   },
   resetKey: (email) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET userkey= null WHERE email='${email}'`,
+      db.query(`UPDATE pekerja SET userkey= null WHERE emailpekerja='${email}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))
