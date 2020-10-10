@@ -360,7 +360,7 @@ const pekerja = {
   },
   update: (req, res) => {
     try {
-      upload.single('image')(req, res, (err) => {
+      upload.single('imagepekerja')(req, res, (err) => {
         if (err) {
           if (err.code === 'LIMIT_FILE_SIZE') {
             failed(res, [], 'Image size is too big! Please upload another one with size <5mb')
