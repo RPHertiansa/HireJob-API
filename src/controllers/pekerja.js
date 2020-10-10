@@ -64,9 +64,9 @@ const pekerja = {
             }
           })
 
-          // res.json({
-          //     message: `Success Registration, Please activate your email`
-          // })
+          res.json({
+              message: `Success Registration, Please activate your email`
+          })
         })
         .catch((err) => {
           failed(res, [], err.message)
@@ -83,14 +83,14 @@ const pekerja = {
           res.status(505)
           failed(res, [], `Failed Activation`)
         } else {
-          const email = decode.email
-          const namepekerja = decode.pekerja
-          pekerjaModel.getUsers(email)
+          const emailpekerja = decode.emailpekerja
+          const namapekerja = decode.namapekerja
+          pekerjaModel.getpekerja(emailpekerja)
             .then((result) => {
               if (result.affectedRows) {
                 res.status(200)
                 // success(res, {email}, `Congrats Gaes`)
-                res.render('pekerja', { email, namapekerja })
+                res.render('pekerja', { emailpekerja, namapekerja })
               } else {
                 res.status(505)
                 failed(res, [], err.message)
