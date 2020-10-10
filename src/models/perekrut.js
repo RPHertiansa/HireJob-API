@@ -14,7 +14,7 @@ const perekrut = {
     },
     login: (data) => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT * FROM perekrut WHERE username = '${data.username}'`,  (err, result) => {
+            db.query(`SELECT * FROM perekrut WHERE emailperekrut = '${data.emailperekrut}'`,  (err, result) => {
                 if (err) {
                     reject (new Error(err))
                 } else {
@@ -23,9 +23,9 @@ const perekrut = {
             })
         })
     },
-    logout:(id) => {
+    logout:(idperekrut) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET refreshToken = null WHERE iduser='${id}'`,
+            db.query(`UPDATE perekrut SET refreshToken = null WHERE idperekrut='${idperekrut}'`,
             (err,result)=> {
                 if (err) {
                     reject (new Error(err))
@@ -35,9 +35,9 @@ const perekrut = {
             })
         })
     }, 
-    updateRefreshToken:(token,id) => {
+    updateRefreshToken:(token,idperekrut) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET refreshToken='${token}' WHERE iduser='${id}'`,
+            db.query(`UPDATE perekrut SET refreshToken='${token}' WHERE idperekrut='${idperekrut}'`,
             (err,result) => {
                 if(err) {
                     reject(new Error(err))
@@ -47,9 +47,9 @@ const perekrut = {
             })
         })
     },
-    newPassword:(password,userkey) => {
+    newPassword:(passwordperekrut,userkey) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET password='${password}' WHERE userkey='${userkey}'`,
+            db.query(`UPDATE perekrut SET passwordperekrut='${passwordperekrut}' WHERE userkey='${userkey}'`,
             (err,result) => {
                 if(err) {
                     reject(new Error(err))
@@ -59,9 +59,9 @@ const perekrut = {
             })
         })
     },
-    resetKey:(email) => {
+    resetKey:(emailperekrut) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET userkey= null WHERE email='${email}'`,
+            db.query(`UPDATE perekrut SET userkey= null WHERE emailperekrut='${emailperekrut}'`,
             (err,result) => {
                 if(err) {
                     reject(new Error(err))
@@ -71,9 +71,9 @@ const perekrut = {
             })
         })
     },
-    updateUserKey:(userKey,email) => {
+    updateUserKey:(userKey,emailperekrut) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET userKey='${userKey}' WHERE email='${email}'`,
+            db.query(`UPDATE perekrut SET userKey='${userKey}' WHERE emailperekrut='${emailperekrut}'`,
             (err,result) => {
                 if(err) {
                     reject(new Error(err))
@@ -97,7 +97,7 @@ const perekrut = {
     },
     getAll: () => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT * FROM perekrut INNER JOIN location ON perekrut.idlocation = location.idlocation`, (err, result) => {
+            db.query(`SELECT * FROM perekrut`, (err, result) => {
                 if (err) {
                     reject (new Error(err))
                 } else {
@@ -106,9 +106,9 @@ const perekrut = {
             })
         })
     },
-    getDetail: (iduser) => {
+    getDetail: (idperekrut) => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT * FROM perekrut INNER JOIN location ON perekrut.idlocation = location.idlocation WHERE iduser ='${iduser}'`, (err, result) => {
+            db.query(`SELECT * FROM perekrut WHERE idperekrut ='${idperekrut}'`, (err, result) => {
                 if (err) {
                     reject(new Error(err))
                 } else {
@@ -128,9 +128,9 @@ const perekrut = {
             })
         })
     },
-    update: (data, iduser) => {
+    update: (data, idperekrut) => {
         return new Promise((resolve, reject) => {
-            db.query(`UPDATE perekrut SET ? WHERE iduser=?`, [data, iduser], (err, result) => {
+            db.query(`UPDATE perekrut SET ? WHERE idperekrut=?`, [data, idperekrut], (err, result) => {
                 if(err) {
                     reject(new Error(err))
                 } else {
@@ -139,9 +139,9 @@ const perekrut = {
             })
         })
     },
-    delete: (iduser) => {
+    delete: (idperekrut) => {
         return new Promise((resolve, reject) => {
-            db.query(`DELETE FROM perekrut WHERE iduser = '${iduser}'`, (err, result) => {
+            db.query(`DELETE FROM perekrut WHERE idperekrut = '${idperekrut}'`, (err, result) => {
                 if (err) {
                     reject(new Error(err))
                 } else {
