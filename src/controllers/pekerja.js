@@ -215,7 +215,6 @@ const pekerja = {
     try {
       const body = req.body
       const email = body.emailpekerja
-      console.log(body)
       pekerjaModel.getEmailpekerja(email)
         .then(() => {
           const userKey = jwt.sign({
@@ -241,7 +240,7 @@ const pekerja = {
                 html:
                   `Hai
                         This is an email to reset the password
-                        KLIK --> <a href="${urlforgot}/forgot?userkey=${userKey}">Klik this link for Reset Password</a>  <---`
+                        KLIK --> <a href="${urlforgot}/resetpass-pekerja?userkey=${userKey}">Klik this link for Reset Password</a>  <---`
               }
 
               transporter.sendMail(mailOptions, (err, result) => {
@@ -270,7 +269,7 @@ const pekerja = {
       const body = req.body
 
       const salt = await bcrypt.genSalt(10)
-      const hashWord = await bcrypt.hash(body.password, salt)
+      const hashWord = await bcrypt.hash(body.passwordpekerja, salt)
 
       const key = req.params.userkey
 
@@ -283,8 +282,7 @@ const pekerja = {
               res.status(505)
               failed(res, [], `Failed Reset userkey`)
             } else {
-              const email = decode.email
-              console.log(email)
+              const email = decode.emailpekerja
               pekerjaModel.resetKey(email)
                 .then((results) => {
                   if (results.affectedRows) {
