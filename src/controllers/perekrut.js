@@ -110,17 +110,16 @@ const perekrut = {
 
             .then(async(result) => {
                 const userData = result[0]
-                const hashWord = userData.password
+                const hashWord = userData.passwordperekrut
                 const userRefreshToken = userData.refreshToken
-                const correct = await bcrypt.compare(body.password, hashWord)
+                const correct = await bcrypt.compare(body.passwordperekrut, hashWord)
 
                 if (correct) {
-                    if(userData.active === 1){
+                    if(userData.is_active === 1){
                         jwt.sign(
                             { 
-                              email : userData.email,
-                              username : userData.username,
-                              level: userData.level
+                              emailperekrut : userData.emailperekrut,
+                              namaperekrut : userData.namaperekrut,
                             },
                             JWT_KEY,
                             { expiresIn: 3600 },
@@ -130,15 +129,15 @@ const perekrut = {
                                     console.log(err)
                                 } else {
                                     if(userRefreshToken === null){
-                                        const id = userData.iduser
+                                        const id = userData.idperekrut
                                         const refreshToken = jwt.sign( 
                                             {id} , JWT_KEY)
                                         perekrutModel.updateRefreshToken(refreshToken,id)
                                         .then(() => {
                                             const data = {
-                                                iduser: userData.iduser,
-                                                username: userData.username,
-                                                level: userData.level,
+                                                idperekrut: userData.idperekrut,
+                                                emailperekrut: userData.emailperekrut,
+                                                status: 'perekrut',
                                                 token: token,
                                                 refreshToken: refreshToken
                                             }
@@ -148,11 +147,11 @@ const perekrut = {
                                         })
                                     }else{
                                         const data = {
-                                            iduser: userData.iduser,
-                                            username: userData.username,
-                                            level: userData.level,
+                                            idperekrut: userData.idperekrut,
+                                            emailperekrut: userData.emailperekrut,
+                                            status: 'perekrut',
                                             token: token,
-                                            refreshToken: userRefreshToken
+                                            refreshToken: refreshToken
                                         }
                                         tokenStatus(res, data, 'Login Success')
                                     }
@@ -178,12 +177,11 @@ const perekrut = {
         perekrutModel.checkRefreshToken(refreshToken)
         .then((result)=>{
             if(result.length >=1){
-                const user = result[0];
+                const userData = result[0];
                 const newToken = jwt.sign(
                     {
-                        email: user.email,
-                        username: user.username,
-                        level: user.level
+                        emailperekrut : userData.emailperekrut,
+                        namaperekrut : userData.namaperekrut 
                     },
                     JWT_KEY,
                     {expiresIn: 3600}
@@ -202,8 +200,8 @@ const perekrut = {
     },
     logout: (req,res) => {
         try {
-            const destroy = req.params.iduser
-            perekrutModel.logout(destroy)
+            const idperekrut = req.params.idperekrut
+            perekrutModel.logout(idperekrut)
             .then((result) => {
                 success(res,result, `Logout Success`)
             }).catch((err) => {
@@ -216,16 +214,16 @@ const perekrut = {
     ForgotPassword: (req,res) => {
         try {
             const body = req.body
-            const email = body.email
-            perekrutModel.getEmailPerekrut(body.email)
+            const emailperekrut = body.emailperekrut
+            perekrutModel.getEmailPerekrut(emailperekrut)
 
             .then(() => {
-                const userKey = jwt.sign({
-                    email: body.email,
-                    username: body.username
+                const userkey = jwt.sign({
+                    emailperekrut: body.emailperekrut,
+                    namaperekrut: body.namaperekrut
                 }, JWT_KEY)
 
-                perekrutModel.updateUserKey(userKey,email)
+                perekrutModel.updateUserKey(userkey,emailperekrut)
                 .then(async() => {
                     let transporter = mailer.createTransport({
                         host: 'smtp.gmail.com',
@@ -233,19 +231,19 @@ const perekrut = {
                         secure: false,
                         requireTLS: true,
                         auth:{
-                            user: emaill,
-                            pass: passwordd
+                            user: myemail,
+                            pass: mypassword
                         }
                     })
     
                     let mailOptions = {
-                        from    : `ANKASA ${emaill}`,
+                        from    : `ANKASA ${myemail}`,
                         to      : body.email,
-                        subject : `Reset Password ${body.email}`,
+                        subject : `Reset Password ${body.emailperekrut}`,
                         html:
                         `Hai
                         This is an email to reset the password
-                        KLIK --> <a href="${urlforgot}/forgot?userkey=${userKey}">Klik this link for Reset Password</a>  <---`
+                        KLIK --> <a href="${urlforgot}/forgot?userkey=${userkey}">Klik this link for Reset Password</a>  <---`
                     }
     
                     transporter.sendMail(mailOptions,(err, result) => {
