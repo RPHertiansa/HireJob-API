@@ -73,7 +73,7 @@ const perekrut = {
     },
     updateUserKey:(userKey,emailperekrut) => {
         return new Promise((resolve,reject) => {
-            db.query(`UPDATE perekrut SET userKey='${userKey}' WHERE emailperekrut='${emailperekrut}'`,
+            db.query(`UPDATE perekrut SET userkey='${userKey}' WHERE emailperekrut='${emailperekrut}'`,
             (err,result) => {
                 if(err) {
                     reject(new Error(err))
@@ -117,17 +117,17 @@ const perekrut = {
             })
         })
     },
-    insert: (data) => {
-        return new Promise((resolve, reject) => {
-            db.query(`INSERT INTO perekrut (email, username, password, level, image, address ) VALUES ('${data.email}', '${data.username}', '${data.password}', '${data.level}', '${data.image}', '${data.address}')`, (err, result) => {
-                if(err) {
-                    reject(new Error(err))
-                } else {
-                    resolve(result)
-                }
-            })
-        })
-    },
+    // insert: (data) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.query(`INSERT INTO perekrut (email, username, password, level, image, address ) VALUES ('${data.email}', '${data.username}', '${data.password}', '${data.level}', '${data.image}', '${data.address}')`, (err, result) => {
+    //             if(err) {
+    //                 reject(new Error(err))
+    //             } else {
+    //                 resolve(result)
+    //             }
+    //         })
+    //     })
+    // },
     update: (data, idperekrut) => {
         return new Promise((resolve, reject) => {
             db.query(`UPDATE perekrut SET ? WHERE idperekrut=?`, [data, idperekrut], (err, result) => {
@@ -163,7 +163,7 @@ const perekrut = {
     },
     getEmailPerekrut: (email) => {
         return new Promise((resolve, reject) => {
-            db.query(`SELECT *FROM perekrut WHERE email='${email}'`, (err, result) => {
+            db.query(`SELECT * FROM perekrut WHERE emailperekrut ='${email}'`, (err, result) => {
                 if(err){
                     reject(new Error(err))
                 }else{

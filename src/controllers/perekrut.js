@@ -1,6 +1,6 @@
 const perekrutModel = require('../models/perekrut')
 const { success, failed, tokenStatus } = require('../helpers/response')
-const { JWT_KEY, myemail, mypassword, url } = require('../helpers/env')
+const { JWT_KEY, myemail, mypassword, url, urlforgot } = require('../helpers/env')
 const upload = require('../helpers/uploads')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
@@ -217,14 +217,13 @@ const perekrut = {
             const body = req.body
             const emailperekrut = body.emailperekrut
             perekrutModel.getEmailPerekrut(emailperekrut)
-
             .then(() => {
                 const userkey = jwt.sign({
                     emailperekrut: body.emailperekrut,
                     namaperekrut: body.namaperekrut
                 }, JWT_KEY)
 
-                perekrutModel.updateUserKey(userkey,emailperekrut)
+                perekrutModel.updateUserKey(userkey, emailperekrut)
                 .then(async() => {
                     let transporter = mailer.createTransport({
                         host: 'smtp.gmail.com',
@@ -238,8 +237,8 @@ const perekrut = {
                     })
     
                     let mailOptions = {
-                        from    : `ANKASA ${myemail}`,
-                        to      : body.email,
+                        from    : `PEWORLD ${myemail}`,
+                        to      : body.emailperekrut,
                         subject : `Reset Password ${body.emailperekrut}`,
                         html:
                         `Hai
