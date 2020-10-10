@@ -3,20 +3,18 @@ const { success, failed } = require('../helpers/response')
 
 const pengalaman = {
   getall: (req, res) => {
-    // try {
+    try {
       const id = req.params.id
-      const sort = !req.query.sorting ? 'idpekerja' : req.query.sorting
-      const type = !req.query.type ? 'ASC' : req.query.type
-      pengalamanModel.getall(id, sort, type)
+      pengalamanModel.getall(id)
       .then((result) => {
         success(res, result, 'Get data succeess')
       })
       .catch((err) => {
         failed(res, [], err.message)
       })
-    // } catch (error) {
-    //   failed(res, [], 'Internal Server Error')
-    // }
+    } catch (error) {
+      failed(res, [], 'Internal Server Error')
+    }
   },
 
   // getdetail: (req, res) => {

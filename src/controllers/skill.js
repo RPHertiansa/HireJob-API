@@ -5,19 +5,8 @@ const skill = {
   getall: (req, res) => {
     try {
       const id = req.params.id
-      const sort = !req.query.sorting ? 'idpekerja' : req.query.sorting
-      const type = !req.query.type ? 'ASC' : req.query.type
-      const limit = !req.query.limit ? 3 : parseInt(req.query.limit)
-      const page = !req.query.page ? 1 : parseInt(req.query.page)
-      const offset = page <= 1 ? 0 : (page - 1) * limit
-      skillModel.getall(id, sort, type, limit, offset)
+      skillModel.getall(id)
       .then((result) => {
-        const totalRows = result[0].count;
-        const meta = {
-          total: totalRows,
-          totalPage: Math.ceil(totalRows / limit),
-          page: page,
-        }
         success(res, result, 'Get data succeess')
       })
       .catch((err) => {
