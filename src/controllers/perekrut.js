@@ -22,7 +22,8 @@ const perekrut = {
                 phoneperekrut : body.phoneperekrut,
                 passwordperekrut : hashWord,
                 jabatan : body.jabatan,
-                namaperusahaan : body.namaperusahaan
+                namaperusahaan : body.namaperusahaan,
+                imageperekrut : '404.png'
             }
 
             perekrutModel.register(data)
@@ -324,10 +325,10 @@ const perekrut = {
     },
     getDetail: (req, res) => {
         try {
-            const iduser = req.params.iduser
-            perekrutModel.getDetail(iduser)
+            const idperekrut = req.params.idperekrut
+            perekrutModel.getDetail(idperekrut)
             .then((result) => {
-                success(res, result, `Here is the data of perekrut with id ${iduser}`)
+                success(res, result, `Here is the data of perekrut with id ${idperekrut}`)
             })
             .catch((err) => {
                 failed(res, [], err.message)
@@ -363,27 +364,29 @@ const perekrut = {
     },
     update:(req, res) => {
         try {
-            upload.single('image')(req, res, (err) => {
+            upload.single('imageperekrut')(req, res, (err) => {
                 if(err){
                     if(err.code === 'LIMIT_FILE_SIZE'){
                         failed(res, [], 'Image size is too big! Please upload another one with size <5mb')
                     } else {
                         failed(res, [], err)
+                        const body = req.body
+                        console.log(body)
                     }
                 } else {
-                    const iduser = req.params.iduser
+                    const idperekrut = req.params.idperekrut
                     const body = req.body
-                    perekrutModel.getDetail(iduser)
+                    perekrutModel.getDetail(idperekrut)
                     .then((result) => {
-                        const oldImg = result[0].image
-                        body.image = !req.file ? oldImg: req.file.filename
-                        if (body.image !== oldImg) {
+                        const oldImg = result[0].imageperekrut
+                        body.imageperekrut = !req.file ? oldImg: req.file.filename
+                        if (body.imageperekrut !== oldImg) {
                             if (oldImg !== '404.png') {
                                 fs.unlink(`src/uploads/${oldImg}`, (err) => {
                                     if (err) {
                                         failed(res, [], err.message)
                                     } else {
-                                        perekrutModel.update(body, iduser)
+                                        perekrutModel.update(body, idperekrut)
                                             .then((result) => {
                                                 success(res, result, 'Update success')
                                             })
@@ -393,7 +396,7 @@ const perekrut = {
                                     }
                                 })
                             } else {
-                                perekrutModel.update(body, iduser)
+                                perekrutModel.update(body, idperekrut)
                                     .then((result) => {
                                         success(res, result, 'Update success')
                                     })
@@ -402,7 +405,7 @@ const perekrut = {
                                     })
                             }
                         } else {
-                            perekrutModel.update(body, iduser)
+                            perekrutModel.update(body, idperekrut)
                                 .then((result) => {
                                     success(res, result, 'Update success')
                                 })
@@ -419,14 +422,14 @@ const perekrut = {
     },
     delete: (req, res) => {
         try {
-            const iduser = req.params.iduser
-            perekrutModel.getDetail(iduser)
+            const idperekrut = req.params.idperekrut
+            perekrutModel.getDetail(idperekrut)
             .then((result) => {
-                const image = result[0].image
-                if(image === '404.png'){
-                    perekrutModel.delete(iduser)
+                const imageperekrut = result[0].imageperekrut
+                if(imageperekrut === '404.png'){
+                    perekrutModel.delete(idperekrut)
                     .then((result) => {
-                        success(res, result, `User with id=${iduser} is deleted!`)
+                        success(res, result, `User with id=${idperekrut} is deleted!`)
                     })
                     .catch((err) => {
                         failed(res, [], err.message)
@@ -436,9 +439,9 @@ const perekrut = {
                         if(err) {
                             failed(res, [], err.message)
                         } else {
-                            perekrutModel.delete(iduser)
+                            perekrutModel.delete(idperekrut)
                             .then((result) => {
-                                success(res, result, `User with id ${iduser} is deleted!`)
+                                success(res, result, `User with id ${idperekrut} is deleted!`)
                             })
                             .catch((err) => {
                                 failed(res, [], err.message)
