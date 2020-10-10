@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const perekrutRouter = require('./src/routes/perekrut')
+const pengalamanRouter = require('./src/routes/pengalaman')
+const skillRouter = require('./src/routes/skill')
 const { PORT } = require('./src/helpers/env')
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(cors())
 
 // app.use('/api/v1/pekerja', router)
 app.use('/api/v1/perekrut', perekrutRouter)
+app.use('/api/v1/pengalaman', pengalamanRouter)
+app.use('/api/v1/skill', skillRouter)
 
 
 app.listen(PORT, () => {
