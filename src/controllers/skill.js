@@ -5,7 +5,7 @@ const skill = {
   getall: (req, res) => {
     try {
       const id = req.params.id
-      const sort = !req.query.sorting ? 'idskill' : req.query.sorting
+      const sort = !req.query.sorting ? 'idpekerja' : req.query.sorting
       const type = !req.query.type ? 'ASC' : req.query.type
       const limit = !req.query.limit ? 3 : parseInt(req.query.limit)
       const page = !req.query.page ? 1 : parseInt(req.query.page)

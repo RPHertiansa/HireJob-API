@@ -1,15 +1,14 @@
 const db = require('../configs/db')
 
 const pengalaman = {
-  getall: (id, sort, type, limit, offset) => {
+  getall: (id, sort, type) => {
     // console.log(id)
     return new Promise((resolve, reject) => {
       db.query(`SELECT *, 
-      (SELECT COUNT (*) FROM pengalaman WHERE idpekerja = ${id}) AS count
+      (SELECT TIMESTAMPDIFF (MONTH, mulaikerja, selesaikerja)) AS lamakerja
       FROM pengalaman
       WHERE idpekerja = ${id}
-      ORDER BY ${sort} ${type}
-      LIMIT ${offset}, ${limit}`, (err, result) => {
+      ORDER BY ${sort} ${type}`, (err, result) => {
         if (err) {
           reject (new Error(err))
         } else {

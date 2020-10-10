@@ -3,29 +3,20 @@ const { success, failed } = require('../helpers/response')
 
 const pengalaman = {
   getall: (req, res) => {
-    try {
+    // try {
       const id = req.params.id
-      const sort = !req.query.sorting ? 'idpengalaman' : req.query.sorting
+      const sort = !req.query.sorting ? 'idpekerja' : req.query.sorting
       const type = !req.query.type ? 'ASC' : req.query.type
-      const limit = !req.query.limit ? 3 : parseInt(req.query.limit)
-      const page = !req.query.page ? 1 : parseInt(req.query.page)
-      const offset = page <= 1 ? 0 : (page - 1) * limit
-      pengalamanModel.getall(id, sort, type, limit, offset)
+      pengalamanModel.getall(id, sort, type)
       .then((result) => {
-        const totalRows = result[0].count;
-        const meta = {
-          total: totalRows,
-          totalPage: Math.ceil(totalRows / limit),
-          page: page,
-        }
         success(res, result, 'Get data succeess')
       })
       .catch((err) => {
         failed(res, [], err.message)
       })
-    } catch (error) {
-      failed(res, [], 'Internal Server Error')
-    }
+    // } catch (error) {
+    //   failed(res, [], 'Internal Server Error')
+    // }
   },
 
   // getdetail: (req, res) => {
