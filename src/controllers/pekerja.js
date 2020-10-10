@@ -148,6 +148,8 @@ const pekerja = {
                       const data = {
                         idpekerja: userData.idpekerja,
                         namapekerja: userData.namapekerja,
+                        emailpekerja: userData.emailpekerja,
+                        status: 'pekerja',
                         token: token,
                         refreshToken: userRefreshToken
                       }
@@ -212,15 +214,13 @@ const pekerja = {
   ForgotPassword: (req, res) => {
     try {
       const body = req.body
-      const email = body.email
-      pekerjaModel.getEmailUsers(body.email)
-
+      const email = body.emailpekerja
+      console.log(body)
+      pekerjaModel.getEmailpekerja(email)
         .then(() => {
           const userKey = jwt.sign({
-            email: body.email,
-            username: body.username
+            emailpekerja: email,
           }, JWT_KEY)
-
           pekerjaModel.updateUserKey(userKey, email)
             .then(async () => {
               let transporter = mailer.createTransport({
@@ -235,9 +235,9 @@ const pekerja = {
               })
 
               let mailOptions = {
-                from: `ANKASA ${myemail}`,
-                to: body.email,
-                subject: `Reset Password ${body.email}`,
+                from: `PEWORLD ${myemail}`,
+                to: email,
+                subject: `Reset Password ${email}`,
                 html:
                   `Hai
                         This is an email to reset the password
@@ -367,7 +367,7 @@ const pekerja = {
           } else {
             failed(res, [], err)
           }
-        } else {
+        } else { 
           const idpekerja = req.params.idpekerja
           const body = req.body
           pekerjaModel.getDetail(idpekerja)

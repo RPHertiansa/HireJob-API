@@ -73,7 +73,7 @@ const pekerja = {
   },
   updateUserKey: (userKey, email) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET userKey='${userKey}' WHERE email='${email}'`,
+      db.query(`UPDATE pekerja SET userKey='${userKey}' WHERE emailpekerja='${email}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))
@@ -164,14 +164,14 @@ const pekerja = {
   },
   getEmailpekerja: (email) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM pekerja WHERE email='${email}'`, (err, result) => {
+      db.query(`SELECT * FROM pekerja WHERE emailpekerja='${email}'`, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
           if (result.length > 0) {
             resolve(result)
           } else {
-            reject(`Email tidak ditemukan`)
+            reject(`Email not found!`)
           }
         }
       })
