@@ -14,7 +14,7 @@ router
   // Refresh Token
   .post('/refreshToken', pekerjaController.renewToken)
   // Logout
-  .post('/logout/:iduser', pekerjaController.logout)
+  .post('/logout/:idpekerja', pekerjaController.logout)
   // Forgot Password
   .post('/ForgotPassword', pekerjaController.ForgotPassword)
   // Send New Password
@@ -24,10 +24,10 @@ router
   // Get All
   .get('/getall', authenticate, authorize, pekerjaController.getAll)
   // Get All Detail
-  .get('/getDetail/:iduser', authenticate, authorize, pekerjaController.getDetail)
+  .get('/getDetail/:idpekerja', authenticate, authorize, pekerjaController.getDetail)
   // Update 
-  .patch('/update/:iduser', authenticate, authorize, pekerjaController.update)
+  .patch('/update/:idpekerja', authenticate, authorize, pekerjaController.update)
   // Delete
-  .delete('/delete/:iduser', authenticate, authorize, pekerjaController.delete)
+  .delete('/delete/:idpekerja', authenticate, authorize, pekerjaController.delete)
 
 module.exports = router;

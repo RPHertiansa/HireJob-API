@@ -199,7 +199,7 @@ const pekerja = {
   },
   logout: (req, res) => {
     try {
-      const destroy = req.params.iduser
+      const destroy = req.params.idpekerja
       pekerjaModel.logout(destroy)
         .then((result) => {
           success(res, result, `Logout Success`)

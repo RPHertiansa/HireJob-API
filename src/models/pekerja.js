@@ -25,7 +25,7 @@ const pekerja = {
   },
   logout: (id) => {
     return new Promise((resolve, reject) => {
-      db.query(`UPDATE pekerja SET refreshToken = null WHERE iduser='${id}'`,
+      db.query(`UPDATE pekerja SET refreshToken = null WHERE idpekerja='${id}'`,
         (err, result) => {
           if (err) {
             reject(new Error(err))
