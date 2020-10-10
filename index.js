@@ -5,6 +5,7 @@ const perekrutRouter = require('./src/routes/perekrut')
 const pekerjaRouter = require('./src/routes/pekerja')
 const pengalamanRouter = require('./src/routes/pengalaman')
 const skillRouter = require('./src/routes/skill')
+const hireRouter = require('./src/routes/hire')
 const { PORT } = require('./src/helpers/env')
 const path = require('path')
 const ejs = require('ejs')
@@ -27,6 +28,7 @@ app.use('/api/v1/pekerja', pekerjaRouter)
 app.use('/api/v1/perekrut', perekrutRouter)
 app.use('/api/v1/pengalaman', pengalamanRouter)
 app.use('/api/v1/skill', skillRouter)
+app.use('/api/v1/hire', hireRouter)
 
 
 app.listen(PORT, () => {
