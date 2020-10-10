@@ -1,6 +1,6 @@
 const perekrutModel = require('../models/perekrut')
 const { success, failed, tokenStatus } = require('../helpers/response')
-const { JWT_KEY, passwordd, emaill, url, urlforgot } = require('../helpers/env')
+const { JWT_KEY, myemail, mypassword, url } = require('../helpers/env')
 const upload = require('../helpers/uploads')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
@@ -14,57 +14,53 @@ const perekrut = {
             const body = req.body
 
             const salt = await bcrypt.genSalt(10)
-            const hashWord = await bcrypt.hash(body.password, salt)
-
-            const usernamefromname = body.fullname.replace(/[^0-9a-z]/gi, '')
+            const hashWord = await bcrypt.hash(body.passwordperekrut, salt)
 
             const data = {
-                email: body.email,
-                fullname: body.fullname, 
-                username: usernamefromname,
-                password: hashWord,
-                level: 2,
-                active: 0,
-                refreshToken: null,
-                image: '404.png',
-                idlocation: 1
+                namaperekrut : body.namaperekrut,
+                emailperekrut : body.emailperekrut,
+                phoneperekrut : body.phoneperekrut,
+                passwordperekrut : hashWord,
+                jabatan : body.jabatan,
+                namaperusahaan : body.namaperusahaan
             }
 
             perekrutModel.register(data)
             .then(() => {
                 const hashWord = jwt.sign({
-                    email: data.email,
-                    username: data.username
+                    emailperekrut: data.emailperekrut,
+                    namaperekrut: data.namaperekrut
                 }, JWT_KEY)
-                
+
                 let transporter = mailer.createTransport({
                     host: 'smtp.gmail.com',
                     port: 587,
                     secure: false,
                     requireTLS: true,
-                    auth:{
-                        user: emaill,
-                        pass: passwordd
+                    auth: {
+                        user: myemail,
+                        pass: mypassword
                     }
                 })
 
                 let mailOptions = {
-                    from    : `ANKASA ${emaill}`,
-                    to      : data.email,
-                    subject : `HELLO ${data.email}`,
+                    from: `PEWORLD ${myemail}`,
+                    to: data.emailperekrut,
+                    subject: `HELLO ${data.namaperekrut}`,
                     html:
-                    `Hai <h1><b>${data.fullname}<b></h1> </br>
+                        `Hai <h1><b>${data.namaperekrut}<b></h1> </br>
                     PLEASE ACTIVATE YOUR EMAIL ! <br>
-                    and You can Login with your <b>username : ${data.username}<b> <br>
-                    KLIK --> <a href="${url}perekrut/verify/${hashWord}"> Activation</a>  <---`
+                    and You can Login with your <b>Nama Perekrut : ${data.namaperekrut}<b> <br>
+                    CLICK --> <a href="${url}perekrut/verify/${hashWord}"> Activation</a>  <---`
                 }
 
-                transporter.sendMail(mailOptions,(err, result) => {
-                    if(err) {
+                transporter.sendMail(mailOptions, (err, result) => {
+                    if (err) {
                         res.status(505)
                         failed(res, [], err.message)
                     } else {
-                        success(res, [result], `Send Mail Success`)
+                        success(res, [result], `Success Registration, Please activate your email`)
+                        // success(res, [result], `Send Mail Success`)
                     }
                 })
 
@@ -87,13 +83,13 @@ const perekrut = {
                     res.status(505)
                     failed(res, [], `Failed Activation`)
                 }else{
-                    const email = decode.email
-                    perekrutModel.getperekrut(email)
+                    const emailperekrut = decode.emailperekrut
+                    const namaperekrut = decode.namaperekrut
+                    perekrutModel.activatePerekrut(emailperekrut)
                     .then((result) => {
                         if(result.affectedRows){
                             res.status(200)
-                            // success(res, {email}, `Congrats Gaes`)
-                            res.render('index', {email})
+                            res.render('perekrut', {emailperekrut, namaperekrut})
                         }else{
                             res.status(505)
                             failed(res, [], err.message)
@@ -127,7 +123,7 @@ const perekrut = {
                               level: userData.level
                             },
                             JWT_KEY,
-                            { expiresIn: 120 },
+                            { expiresIn: 3600 },
     
                             (err, token) => {
                                 if (err) {
@@ -221,7 +217,7 @@ const perekrut = {
         try {
             const body = req.body
             const email = body.email
-            perekrutModel.getEmailperekrut(body.email)
+            perekrutModel.getEmailPerekrut(body.email)
 
             .then(() => {
                 const userKey = jwt.sign({

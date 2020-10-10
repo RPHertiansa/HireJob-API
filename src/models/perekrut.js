@@ -150,9 +150,9 @@ const perekrut = {
             })
         })
     },
-    getperekrut: (data) => {
+    activatePerekrut: (data) => {
         return new Promise((resolve, reject) => {
-            db.query(`UPDATE perekrut SET active = 1 WHERE email= '${data}'`, (err,result) => {
+            db.query(`UPDATE perekrut SET is_active = 1 WHERE emailperekrut = '${data}'`, (err,result) => {
                 if(err){
                     reject(new Error(err))
                 }else{
@@ -161,7 +161,7 @@ const perekrut = {
             })
         })
     },
-    getEmailperekrut: (email) => {
+    getEmailPerekrut: (email) => {
         return new Promise((resolve, reject) => {
             db.query(`SELECT *FROM perekrut WHERE email='${email}'`, (err, result) => {
                 if(err){

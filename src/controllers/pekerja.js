@@ -84,12 +84,13 @@ const pekerja = {
                     failed(res, [], `Failed Activation`)
                 } else {
                     const email = decode.email
+                    const namepekerja = decode.pekerja
                     pekerjaModel.getUsers(email)
                         .then((result) => {
                             if (result.affectedRows) {
                                 res.status(200)
                                 // success(res, {email}, `Congrats Gaes`)
-                                res.render('index', { email })
+                                res.render('pekerja', { email, namapekerja })
                             } else {
                                 res.status(505)
                                 failed(res, [], err.message)
