@@ -28,7 +28,7 @@ app.use('/api/v1/pekerja', pekerjaRouter)
 app.use('/api/v1/perekrut', perekrutRouter)
 app.use('/api/v1/pengalaman', pengalamanRouter)
 app.use('/api/v1/skill', skillRouter)
-app.use('/api/v1/hire', hireRouter)
+//app.use('/api/v1/hire', hireRouter)
 
 
 app.listen(PORT, () => {
