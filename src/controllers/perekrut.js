@@ -152,7 +152,7 @@ const perekrut = {
                                             emailperekrut: userData.emailperekrut,
                                             status: 'perekrut',
                                             token: token,
-                                            refreshToken: refreshToken
+                                            refreshToken: userRefreshToken
                                         }
                                         tokenStatus(res, data, 'Login Success')
                                     }
