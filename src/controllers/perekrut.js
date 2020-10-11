@@ -243,7 +243,7 @@ const perekrut = {
                         html:
                         `Hai
                         This is an email to reset the password
-                        KLIK --> <a href="${urlforgot}/forgot?userkey=${userkey}">Klik this link for Reset Password</a>  <---`
+                        KLIK --> <a href="${urlforgot}/resetpass-perekrut?userkey=${userkey}">Klik this link for Reset Password</a>  <---`
                     }
     
                     transporter.sendMail(mailOptions,(err, result) => {
