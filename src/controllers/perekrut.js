@@ -243,7 +243,7 @@ const perekrut = {
                         html:
                         `Hai
                         This is an email to reset the password
-                        KLIK --> <a href="${urlforgot}/forgot?userkey=${userkey}">Klik this link for Reset Password</a>  <---`
+                        KLIK --> <a href="${urlforgot}/resetpass-perekrut?userkey=${userkey}">Klik this link for Reset Password</a>  <---`
                     }
     
                     transporter.sendMail(mailOptions,(err, result) => {
@@ -272,7 +272,7 @@ const perekrut = {
             const body = req.body
             
             const salt = await bcrypt.genSalt(10)
-            const hashWord = await bcrypt.hash(body.password, salt)
+            const hashWord = await bcrypt.hash(body.passwordperekrut, salt)
 
             const key = req.params.userkey
 
@@ -285,7 +285,7 @@ const perekrut = {
                         res.status(505)
                         failed(res, [], `Failed Reset userkey`)
                     }else{
-                        const email = decode.email
+                        const email = decode.emailperekrut
                         console.log(email)
                         perekrutModel.resetKey(email)
                         .then((results) => {
@@ -302,7 +302,7 @@ const perekrut = {
                     }
                 })
             }).catch((err) => {
-                failed(res, [], err)
+                failed(res, [], err.message)
             })        
         } catch (error) {
             failed(res, [], `Internal Server Error`)
