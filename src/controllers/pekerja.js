@@ -319,8 +319,7 @@ const pekerja = {
   // },
   getAll: (req, res) => {
     try {
-      // const namapekerja = !req.query.namapekerja ? "" : req.query.namapekerja;
-      // const data = 
+      const skill = !req.query.skill ? "" : req.query.skill;
       const sortby = !req.query.sortby ? "idpekerja" : req.query.sortby;
       const sorttype = !req.query.sorttype ? "ASC" : req.query.sorttype;
       
@@ -329,7 +328,7 @@ const pekerja = {
       const offset = page <= 1 ? 0 : (page - 1) * limit;
 
 
-      pekerjaModel.getAll(sortby,sorttype,limit,offset)
+      pekerjaModel.getAll(skill,sortby,sorttype,limit,offset)
         .then((result) => {
           console.log(result)
           if (result.length < 1) {
