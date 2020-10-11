@@ -32,6 +32,20 @@ const hire = {
         } catch (error) {
             failed(res, [], 'Internal server error')
         }
+    },
+    getDetail: (req, res) => {
+        try {
+            const idhire = req.params.idhire
+            hireModel.getDetail(idhire)
+            .then((result) => {
+                success(res, result, 'Get detail success')
+            })
+            .catch((err) => {
+                failed(res, [], err.message)
+            })
+        } catch (error) {
+            failed(res, [], 'Internal server error')
+        }
     }
 }
 
