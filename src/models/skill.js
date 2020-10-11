@@ -1,12 +1,12 @@
 const db = require('../configs/db')
 
-const pengalaman = {
+const skill = {
   getall: (id) => {
     // console.log(id)
     return new Promise((resolve, reject) => {
       db.query(`SELECT *, 
-      (SELECT TIMESTAMPDIFF (MONTH, mulaikerja, selesaikerja)) AS lamakerja
-      FROM pengalaman
+      (SELECT COUNT (*) FROM skill WHERE idpekerja = ${id}) AS count
+      FROM skill
       WHERE idpekerja = ${id}
       `, (err, result) => {
         if (err) {
@@ -20,21 +20,13 @@ const pengalaman = {
   insert: (data) => {
     // console.log(data)
     return new Promise ((resolve, reject) => {
-      db.query (`INSERT INTO pengalaman (
+      db.query (`INSERT INTO skill (
           idpekerja,
-          posisi,
-          namaperusahaan,
-          mulaikerja,
-          selesaikerja,
-          deskripsi
+          namaskill
         ) 
         VALUES (
         '${data.idpekerja}',
-        '${data.posisi}',
-        '${data.namaperusahaan}',
-        '${data.mulaikerja}',
-        '${data.selesaikerja}',
-        '${data.deskripsi}'
+        '${data.namaskill}'
         )`, (err, result) => {
         if(err){
           reject(new Error(err))
@@ -47,7 +39,7 @@ const pengalaman = {
   update: (data, id) => {
     // console.log(data, id)
     return new Promise ((resolve, reject) => {
-      db.query(`UPDATE pengalaman SET ? WHERE idpengalaman = ?`, [data, id], (err, result) => {
+      db.query(`UPDATE skill SET ? WHERE idskill = ?`, [data, id], (err, result) => {
         if (err) {
           reject (new Error(err))
         } else {
@@ -59,7 +51,7 @@ const pengalaman = {
   delete: (id) => {
     // console.log(id)
     return new Promise ((resolve, reject) => {
-      db.query(`DELETE FROM pengalaman WHERE idpengalaman = ${id}`, (err, result) => {
+      db.query(`DELETE FROM skill WHERE idskill = ${id}`, (err, result) => {
         if (err) {
           reject (new Error(err))
         } else {
@@ -70,4 +62,4 @@ const pengalaman = {
   }
 }
 
-module.exports = pengalaman
+module.exports = skill

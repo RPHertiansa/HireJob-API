@@ -1,11 +1,11 @@
-const pengalamanModel = require('../models/pengalaman')
+const skillModel = require('../models/skill')
 const { success, failed } = require('../helpers/response')
 
-const pengalaman = {
+const skill = {
   getall: (req, res) => {
     try {
       const id = req.params.id
-      pengalamanModel.getall(id)
+      skillModel.getall(id)
       .then((result) => {
         success(res, result, 'Get data succeess')
       })
@@ -20,9 +20,9 @@ const pengalaman = {
   // getdetail: (req, res) => {
   //   try {
   //     const id = req.query.idpekerja
-  //     pengalamanModel.getdetail(id)  
+  //     skillModel.getdetail(id)  
   //     .then((result) => {
-  //       success(res, result, 'Get pengalaman by id pekerja success')
+  //       success(res, result, 'Get skill by id pekerja success')
   //     })
   //     .catch((err) => {
   //       failed(res, err, err.message)
@@ -36,7 +36,7 @@ const pengalaman = {
   insert: (req, res) => {
     try {
       const body = req.body
-        pengalamanModel.insert(body)
+        skillModel.insert(body)
         .then((result)=>{
             success(res, result, `Insert data success`)
         })
@@ -51,7 +51,7 @@ const pengalaman = {
     try {
       const id = req.params.id
       const body = req.body
-      pengalamanModel.update(body, id)
+      skillModel.update(body, id)
       .then((result) => [
         success(res, result, 'Update data success')
       ])
@@ -65,7 +65,7 @@ const pengalaman = {
   delete: (req, res) => {
     try {
       const id = req.params.id
-      pengalamanModel.delete(id)
+      skillModel.delete(id)
       .then((result) => {
         success(res, result, 'Delete data success')
       })
@@ -78,4 +78,4 @@ const pengalaman = {
   }
 }
 
-module.exports = pengalaman
+module.exports = skill
