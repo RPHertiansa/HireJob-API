@@ -1,5 +1,5 @@
 const pekerjaModel = require('../models/pekerja')
-const { success, failed, tokenStatus } = require('../helpers/response')
+const { success, failed, tokenStatus,successWithMeta, notfound } = require('../helpers/response')
 const { JWT_KEY, mypassword, myemail, url, urlforgot } = require('../helpers/env')
 const upload = require('../helpers/uploads')
 const fs = require('fs')
@@ -304,14 +304,48 @@ const pekerja = {
       failed(res, [], `Internal Server Error`)
     }
   },
+  // getAll: (req, res) => {
+  //   try {
+  //     pekerjaModel.getAll()
+  //       .then((result) => {
+  //         success(res, result, 'Here are the users that data you requested')
+  //       })
+  //       .catch((err) => {
+  //         failed(res, [], err)
+  //       })
+  //   } catch (error) {
+  //     failed(res, [], 'Internal server error!')
+  //   }
+  // },
   getAll: (req, res) => {
     try {
-      pekerjaModel.getAll()
+      // const namapekerja = !req.query.namapekerja ? "" : req.query.namapekerja;
+      // const data = 
+      const sortby = !req.query.sortby ? "idpekerja" : req.query.sortby;
+      const sorttype = !req.query.sorttype ? "ASC" : req.query.sorttype;
+      
+      const limit = !req.query.limit ? 10 : parseInt(req.query.limit);
+      const page = !req.query.page ? 1 : parseInt(req.query.page);
+      const offset = page <= 1 ? 0 : (page - 1) * limit;
+
+
+      pekerjaModel.getAll(sortby,sorttype,limit,offset)
         .then((result) => {
-          success(res, result, 'Here are the users that data you requested')
+          console.log(result)
+          if (result.length < 1) {
+            notfound(res,[],'Data not found!')
+          } else {
+            const totalRows = result[0].count;
+            const meta = {
+            total: totalRows,
+            totalPage: Math.ceil(totalRows / limit),
+            page: page,
+            }
+            successWithMeta(res, result, meta, 'Here are the users that data you requested')
+          }
         })
         .catch((err) => {
-          failed(res, [], err)
+          failed(res, [], err.message)
         })
     } catch (error) {
       failed(res, [], 'Internal server error!')

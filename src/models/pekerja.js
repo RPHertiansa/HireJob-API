@@ -94,11 +94,11 @@ const pekerja = {
           }
         })
     })
-    
   },
-  getAll: () => {
+
+   getAll: (data, sortby, sorttype, limit, offset) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM pekerja`, (err, result) => {
+      db.query(`SELECT *, (SELECT COUNT(*) FROM pekerja) as count FROM pekerja WHERE idpekerja = ? '' ORDER BY ${sortby} ${sorttype} LIMIT ${limit} OFFSET ${offset}`, data, (err, result) => {
         if (err) {
           reject(new Error(err))
         } else {
@@ -107,6 +107,30 @@ const pekerja = {
       })
     })
   },
+
+  // getAll: (namapekerja, sortby, sorttype, limit, offset) => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(`SELECT *, (SELECT COUNT(*) FROM pekerja) as count FROM pekerja WHERE namapekerja LIKE '%${namapekerja}%' ORDER BY ${sortby} ${sorttype} LIMIT ${limit} OFFSET ${offset}`, (err, result) => {
+  //       if (err) {
+  //         reject(new Error(err))
+  //       } else {
+  //         resolve(result)
+  //       }
+  //     })
+  //   })
+  // },
+
+  // getAll: () => {
+  //   return new Promise((resolve, reject) => {
+  //     db.query(`SELECT * FROM pekerja`, (err, result) => {
+  //       if (err) {
+  //         reject(new Error(err))
+  //       } else {
+  //         resolve(result)
+  //       }
+  //     })
+  //   })
+  // },
   getDetail: (idpekerja) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM pekerja WHERE idpekerja ='${idpekerja}'`, (err, result) => {
