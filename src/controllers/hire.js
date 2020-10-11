@@ -9,7 +9,19 @@ const mailer = require('nodemailer')
 const response = require('../helpers/response')
 
 const hire = {
-
+    getAll: (req, res) => {
+        try {
+            hireModel.getAll()
+            .then((result) => {
+                success(res, result, 'Get all data success')
+            })
+            .catch((err) => {
+                failed(res, [], err.message)
+            })
+        } catch (error) {
+            failed(res, [], 'Internal server error')
+        }
+    }
 }
 
 

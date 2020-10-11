@@ -1,15 +1,14 @@
 const db = require('../configs/db')
 
 const skill = {
-  getall: (id, sort, type, limit, offset) => {
+  getall: (id) => {
     // console.log(id)
     return new Promise((resolve, reject) => {
       db.query(`SELECT *, 
       (SELECT COUNT (*) FROM skill WHERE idpekerja = ${id}) AS count
       FROM skill
       WHERE idpekerja = ${id}
-      ORDER BY ${sort} ${type}
-      LIMIT ${offset}, ${limit}`, (err, result) => {
+      `, (err, result) => {
         if (err) {
           reject (new Error(err))
         } else {
