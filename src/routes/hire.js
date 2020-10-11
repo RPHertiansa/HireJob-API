@@ -5,7 +5,9 @@ const { authenticate, authorize } = require('../helpers/auth')
 const router = express.Router();
 
 router
+    .post('/joboffer', hireController.jobOffer)
     .get('/getall', hireController.getAll)
+    .get('/getdetail/:idhire', hireController.getDetail)
     
 
 module.exports = router;
