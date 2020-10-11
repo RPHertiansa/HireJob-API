@@ -96,7 +96,6 @@ const pekerja = {
     })
   },
 
-
   getAll: (skill, sortby, sorttype, limit, offset) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT *, (SELECT COUNT(*) FROM pekerja WHERE skill LIKE '%${skill}%') as count FROM pekerja WHERE skill LIKE '%${skill}%' ORDER BY ${sortby} ${sorttype} LIMIT ${limit} OFFSET ${offset}`, (err, result) => {

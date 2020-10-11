@@ -330,7 +330,6 @@ const pekerja = {
 
       pekerjaModel.getAll(skill,sortby,sorttype,limit,offset)
         .then((result) => {
-          console.log(result)
           if (result.length < 1) {
             notfound(res,[],'Data not found!')
           } else {
