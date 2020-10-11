@@ -24,7 +24,7 @@ router
   // Get All
   .get('/getall', authenticate, authorize, pekerjaController.getAll)
   // Get All Detail
-  .get('/getDetail/:idpekerja', authenticate, authorize, pekerjaController.getDetail)
+  .get('/getDetail/:idpekerja',  pekerjaController.getDetail)
   // Update 
   .patch('/update/:idpekerja', authenticate, authorize, pekerjaController.update)
   // Delete
