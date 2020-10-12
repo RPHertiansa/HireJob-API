@@ -46,7 +46,7 @@ const hire = {
                 
                         let mailOptions = {
                             from: `PEWORLD ${myemail}`,
-                            to: `reyhertiansa@gmail.com`,
+                            to: `${emailpekerja}`,
                             subject: 'Tawaran Pekerjaan',
                             html:
                             `

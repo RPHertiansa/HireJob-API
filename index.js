@@ -5,6 +5,7 @@ const perekrutRouter = require('./src/routes/perekrut')
 const pekerjaRouter = require('./src/routes/pekerja')
 const pengalamanRouter = require('./src/routes/pengalaman')
 const hireRouter = require('./src/routes/hire')
+const hireModel = require('./src/models/hire')
 const portofolioRouter = require('./src/routes/portofolio')
 const { PORT } = require('./src/helpers/env')
 const path = require('path')
@@ -36,6 +37,42 @@ app.use('/api/v1/pengalaman', pengalamanRouter)
 app.use('/api/v1/hire', hireRouter)
 app.use('/api/v1/portofolio', portofolioRouter)
 
+
+io.on('connection', (socket) => {
+    console.log('user connected')
+
+    socket.on('get-all-pekerja', (payload) => {
+
+        console.log(payload)
+        hireModel.cariPekerja(payload.idperekrut)
+        .then((result) => {
+            if(result.length === 0) {
+                console.log('user not found')
+            } else {
+                io.emit('listPekerja', result)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    })
+
+    socket.on('get-all-perekrut', (payload) => {
+
+        console.log(payload)
+        hireModel.cariPerekrut(payload.idpekerja)
+        .then((result) => {
+            if(result.length === 0) {
+                console.log('user not found')
+            } else {
+                io.emit('listPerekrut', result)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    })
+})
 
 server.listen(PORT, () => {
     console.log(`App is running at port ${PORT}`)
