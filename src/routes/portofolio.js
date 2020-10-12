@@ -6,15 +6,15 @@ const router = express.Router();
 
 router
     // getall
-    .get('/getall/:id', portofolioController.getall)
+    .get('/getall/:id', authenticate, authorize, portofolioController.getall)
     // getdetail
-    .get('/getdetail/:id', portofolioController.getdetail)
+    .get('/getdetail/:id', authenticate, authorize, portofolioController.getdetail)
     // insert
-    .post('/insert', portofolioController.insert)
+    .post('/insert', authenticate, authorize, portofolioController.insert)
     // update
-    .patch('/update/:id', portofolioController.update)
+    .patch('/update/:id', authenticate, authorize, portofolioController.update)
     //delete
-    .delete('/delete/:id', portofolioController.delete)
+    .delete('/delete/:id', authenticate, authorize, portofolioController.delete)
     
 
 module.exports = router;

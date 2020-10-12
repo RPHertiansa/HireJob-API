@@ -6,15 +6,15 @@ const router = express.Router();
 
 router
     // Get All fiter by id pekerja
-    .get('/getall/:id',  pengalamanController.getall)
+    .get('/getall/:id', authenticate, authorize,  pengalamanController.getall)
     // Insert
-    // .post('/insert', authenticate, authorize, pengalamanController.insert)
-    .post('/insert', pengalamanController.insert)
+    .post('/insert', authenticate, authorize, pengalamanController.insert)
+    // .post('/insert', pengalamanController.insert)
     // Update by id pengalaman
-    // .patch('/update/:id', authenticate, authorize, pengalamanController.update)
-    .patch('/update/:id', pengalamanController.update)
+    .patch('/update/:id', authenticate, authorize, pengalamanController.update)
+    // .patch('/update/:id', pengalamanController.update)
     // Delete by id pengalaman
-    // .delete('/delete/:id', authenticate, authorize, pengalamanController.delete)
-    .delete('/delete/:id', pengalamanController.delete)
+    .delete('/delete/:id', authenticate, authorize, pengalamanController.delete)
+    // .delete('/delete/:id', pengalamanController.delete)
 
 module.exports = router;
