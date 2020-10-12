@@ -49,39 +49,34 @@ const hire = {
                             to: `reyhertiansa@gmail.com`,
                             subject: 'Tawaran Pekerjaan',
                             html:
-                            `<!doctype html>
+                            `
+                            <!doctype html>
                             <html lang="en">
-                              <head>
+                            <head>
                                 <!-- Required meta tags -->
                                 <meta charset="utf-8">
-                                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                                
-                                <link rel="icon" href="/icon.png" type="image/x-icon"/>
-                                <link rel="shortcut icon" href="/icon.png" type="image/x-icon">
-                                
-                            
-                                <!-- Bootstrap CSS -->
-                                
+                                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
                                 <style>
-                                  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-                                  * {
+                                @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+                                * {
                                     font-family: 'Open Sans', sans-serif;
-                                  }
-                                  body {
-                                     padding: 0 300px;
-                                     margin: 0;
-                                  }
-                                  .footer{
-                                  background-color: #5E50A1 !important;
-                                  color: white;
-                                  padding: 25px;
-                                  }
-                                  .jumbotron {
+                                }
+                                body {
+                                    padding: 0;
+                                    margin: 0;
+                                }
+                                .footer{
+                                background-color: #5E50A1 !important;
+                                color: white;
+                                padding: 25px;
+                                }
+                                .jumbotron {
                                     border-radius: 0% !important;
                                     padding: 25px;
                                     background-color: #E5E5E5;
-                                  }
-                                  .btn {
+                                    color: black;
+                                }
+                                .btn {
                                     padding: 5px;
                                     border: 1px solid #FBB017;
                                     border-radius: 25px;
@@ -89,44 +84,52 @@ const hire = {
                                     color: white;
                                     text-align: center;
                                     width: 200px;
-                                    margin: 0 auto;
-                                  }
-                                  .btn:hover{
-                                      transform: scale(1.02);
-                                  }
+                                    margin: 10px auto;
+                                }
+                                .btn:hover{
+                                    transform: scale(1.02);
+                                }
+                                .hirebox {
+                                    border: 1px solid #5E50A1;
+                                    padding: 0px 15px;
+                                }
                                 </style>
                                 <title>Aktivasi Akun</title>
-                              </head>
-                              <body>
-                                <div class="jumbotron">
-                                    <h1 class="display-4">Tawaran Pekerjaan</h1>
-                                    <p class="mt-5">Halo ${namapekerja}!</p>
-                                    <p>Akun kamu terdaftar pada aplikasi Peworld dengan email : <span style="text-decoration: none;">${emailpekerja}</span></p>
-                                    <p>Berikut adalah tawaran pekerjaan yang kamu terima:</p>
-                                    <p>Nama perekrut: ${namalengkap}</p>
-                                    <p>${jabatan} di ${namaperusahaan}</p>
-                                    <p>Email:  <span style="text-decoration: none;">${email}</span></p>
-                                    <p>Nomor telepon: ${phone}</p>
-                                    <p>Pekerjaan yang ditawarkan: ${pesantujuan}</p>
-                                    <p>Deskripsi: ${deskripsi}</p>
-                                    <div class="btn" href="http://localhost:8080/login-pekerja">Lihat di aplikasi</div>
+                            </head>
+                            <body>
+                                <div>
+                                    <div class="jumbotron">
+                                        <h1>Tawaran Pekerjaan</h1>
+                                        <p>Halo ${namapekerja}!</p>
+                                        <p>Akun kamu terdaftar pada aplikasi Peworld dengan email : <span style="text-decoration: none;">${emailpekerja}</span></p>
+                                        <p>Berikut adalah tawaran pekerjaan yang kamu terima:</p>
+                                        <div class="hirebox">
+                                            <p>Nama Perekrut: ${namalengkap}</p>
+                                            <p>Posisi: ${jabatan} di ${namaperusahaan}</p>
+                                            <p>Email:  <span style="text-decoration: none;">${email}</span></p>
+                                            <p>Nomor telepon: ${phone}</p>
+                                            <p>Pekerjaan yang ditawarkan: ${pesantujuan}</p>
+                                            <p>Deskripsi: ${deskripsi}</p>
+                                        </div>
+                                        <div class="btn" href="http://localhost:8080/login-pekerja">Lihat di aplikasi</div>
+                                    </div>
+                                    <div class="footer">
+                                        <img src="http://drive.google.com/uc?export=view&id=1lm-UanFAdguBaOh7uHHbwwFDBc90S7x-" style="width:120px ;" class="mt-5"> <br>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>In euismod ipsum et dui rhoncus auctor.</p>
+                                        <hr style="background-color: white;">
+                                        <p>2020 Peworld. All right reserved</p>
+                                    </div>
                                 </div>
-                                <div class="footer">
-                                    <img src="http://drive.google.com/uc?export=view&id=1lm-UanFAdguBaOh7uHHbwwFDBc90S7x-" style="width:120px ;" class="mt-5"> <br>
-                                    <p class="mt-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>In euismod ipsum et dui rhoncus auctor.</p>
-                                    <hr style="background-color: white;"class="mt-5">
-                                    <p>2020 Peworld. All right reserved</p>
-                                </div>
-                            
-                            
+
+
                                 <!-- Optional JavaScript -->
                                 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
                                 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
                                 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
                                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-                              </body>
+                            </body>
                             </html>
-                            
+
                             `
                         }
                 
@@ -135,14 +138,14 @@ const hire = {
                             res.status(505)
                             failed(res, [], err.message)
                             } else {
-                            success(res, [result], `Success Registration, Please activate your email`)
+                            success(res, [result], `Job offer sent!`)
                             // success(res, [result], `Send Mail Success`)
                             }
                         })
                     })
 
                     res.json({
-                        message: `Success Registration, Please activate your email`
+                        message: `Job offer sent!`
                     })
                 })
             })

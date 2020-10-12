@@ -9,8 +9,14 @@ const portofolioRouter = require('./src/routes/portofolio')
 const { PORT } = require('./src/helpers/env')
 const path = require('path')
 const ejs = require('ejs')
+const socketio = require('socket.io')
+const http =require ('http')
+
 
 const app = express();
+const server = http.createServer(app)
+const io = socketio(server)
+
 app.set('views', path.join(__dirname,'src/views'))
 app.set('view engine', 'ejs')
 

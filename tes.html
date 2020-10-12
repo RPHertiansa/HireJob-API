@@ -3,22 +3,19 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link rel="icon" href="/icon.png" type="image/x-icon"/>
-    <link rel="shortcut icon" href="/icon.png" type="image/x-icon">
-    
-
-    <!-- Bootstrap CSS -->
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
       * {
         font-family: 'Open Sans', sans-serif;
       }
       body {
-         padding: 0 300px;
+         padding: 0;
          margin: 0;
+      }
+      .box{
+          padding: 0 300px;
+          background-color: #E5E5E5;
       }
       .footer{
       background-color: #5E50A1 !important;
@@ -28,7 +25,7 @@
       .jumbotron {
         border-radius: 0% !important;
         padding: 25px;
-        background-color: #E5E5E5;
+        background-color: white;
       }
       .btn {
         padding: 5px;
@@ -38,33 +35,41 @@
         color: white;
         text-align: center;
         width: 200px;
-        margin: 0 auto;
+        margin: 10px auto;
       }
       .btn:hover{
           transform: scale(1.02);
+      }
+      .hirebox {
+        border: 1px solid #5E50A1;
+        padding: 0px 15px;
       }
     </style>
     <title>Aktivasi Akun</title>
   </head>
   <body>
-    <div class="jumbotron">
-        <h1 class="display-4">Tawaran Pekerjaan</h1>
-        <p class="mt-5">Halo ${namapekerja}!</p>
-        <p>Akun kamu terdaftar pada aplikasi Peworld dengan email : <span style="text-decoration: none;">${emailpekerja}</span></p>
-        <p>Berikut adalah tawaran pekerjaan yang kamu terima:</p>
-        <p>Nama perekrut: ${namalengkap}</p>
-        <p>${jabatan} di ${namaperusahaan}</p>
-        <p>Email:  <span style="text-decoration: none;">${email}</span></p>
-        <p>Nomor telepon: ${phone}</p>
-        <p>Pekerjaan yang ditawarkan: ${pesantujuan}</p>
-        <p>Deskripsi: ${deskripsi}</p>
-        <div class="btn" href="http://localhost:8080/login-pekerja">Lihat di aplikasi</div>
-    </div>
-    <div class="footer">
-        <img src="http://drive.google.com/uc?export=view&id=1lm-UanFAdguBaOh7uHHbwwFDBc90S7x-" style="width:120px ;" class="mt-5"> <br>
-        <p class="mt-2" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>In euismod ipsum et dui rhoncus auctor.</p>
-        <hr style="background-color: white;"class="mt-5">
-        <p>2020 Peworld. All right reserved</p>
+    <div class="box">
+        <div class="jumbotron">
+            <h1>Tawaran Pekerjaan</h1>
+            <p>Halo ${namapekerja}!</p>
+            <p>Akun kamu terdaftar pada aplikasi Peworld dengan email : <span style="text-decoration: none;">${emailpekerja}</span></p>
+            <p>Berikut adalah tawaran pekerjaan yang kamu terima:</p>
+            <div class="hirebox">
+                <p>${namalengkap}</p>
+                <p>${jabatan} di ${namaperusahaan}</p>
+                <p>Email:  <span style="text-decoration: none;">${email}</span></p>
+                <p>Nomor telepon: ${phone}</p>
+                <p>Pekerjaan yang ditawarkan: ${pesantujuan}</p>
+                <p>Deskripsi: ${deskripsi}</p>
+            </div>
+            <div class="btn" href="http://localhost:8080/login-pekerja">Lihat di aplikasi</div>
+        </div>
+        <div class="footer">
+            <img src="http://drive.google.com/uc?export=view&id=1lm-UanFAdguBaOh7uHHbwwFDBc90S7x-" style="width:120px ;" class="mt-5"> <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>In euismod ipsum et dui rhoncus auctor.</p>
+            <hr style="background-color: white;">
+            <p>2020 Peworld. All right reserved</p>
+        </div>
     </div>
 
 
