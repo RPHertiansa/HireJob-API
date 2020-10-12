@@ -42,12 +42,10 @@ io.on('connection', (socket) => {
     console.log('user connected')
 
     socket.on('get-all-pekerja', (payload) => {
-
-        console.log(payload)
         hireModel.cariPekerja(payload.idperekrut)
         .then((result) => {
             if(result.length === 0) {
-                console.log('user not found')
+                console.log('pekerja not found')
             } else {
                 io.emit('listPekerja', result)
             }
@@ -57,13 +55,11 @@ io.on('connection', (socket) => {
         })
     })
 
-    socket.on('get-all-perekrut', (payload) => {
-
-        console.log(payload)
-        hireModel.cariPerekrut(payload.idpekerja)
+    socket.on('get-all-perekrut', (data) => {
+        hireModel.cariPerekrut(data.idpekerja)
         .then((result) => {
             if(result.length === 0) {
-                console.log('user not found')
+                console.log('perekrut not found')
             } else {
                 io.emit('listPerekrut', result)
             }
