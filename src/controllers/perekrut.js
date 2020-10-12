@@ -123,7 +123,7 @@ const perekrut = {
                               namaperekrut : userData.namaperekrut,
                             },
                             JWT_KEY,
-                            { expiresIn: 3600 },
+                            { expiresIn: 120 },
     
                             (err, token) => {
                                 if (err) {
