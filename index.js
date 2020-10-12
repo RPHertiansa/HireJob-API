@@ -37,7 +37,7 @@ app.use('/api/v1/hire', hireRouter)
 app.use('/api/v1/portofolio', portofolioRouter)
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`App is running at port ${PORT}`)
 });
 

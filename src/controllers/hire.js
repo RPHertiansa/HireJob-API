@@ -182,6 +182,34 @@ const hire = {
         } catch (error) {
             failed(res, [], 'Internal server error')
         }
+    },
+    cariPekerja: (req, res) => {
+        try {
+            const idperekrut = req.params.idperekrut
+            hireModel.cariPekerja(idperekrut)
+            .then((result) => {
+                success(res, result, 'Tulis pesan untuk para pekerja')
+            })
+            .catch((err) => {
+                failed(res, [], err.message)
+            })
+        } catch (error) {
+            failed(res, [], 'Internal server error')
+        }
+    },
+    cariPerekrut: (req, res) => {
+        try {
+            const idpekerja = req.params.idpekerja
+            hireModel.cariPerekrut(idpekerja)
+            .then((result) => {
+                success(res, result, 'Tulis pesan untuk para perekrut')
+            })
+            .catch((err) => {
+                failed(res, [], err.message)
+            })
+        } catch (error) {
+            failed(res, [], 'Internal server error')
+        }
     }
 }
 

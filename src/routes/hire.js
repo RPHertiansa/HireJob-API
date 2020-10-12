@@ -8,6 +8,8 @@ router
     .post('/joboffer', hireController.jobOffer)
     .get('/getall', hireController.getAll)
     .get('/getdetail/:idhire', hireController.getDetail)
+    .get('/find/pekerja/:idperekrut', hireController.cariPekerja)
+    .get('/find/perekrut/:idpekerja', hireController.cariPerekrut)
     
 
 module.exports = router;
