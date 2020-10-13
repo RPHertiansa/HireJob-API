@@ -54,9 +54,8 @@ io.on('connection', (socket) => {
             console.log(err)
         })
     })
-
-    socket.on('get-all-perekrut', (data) => {
-        hireModel.cariPerekrut(data.idpekerja)
+    socket.on('get-all-perekrut', (payload) => {
+        hireModel.cariPerekrut(payload.idpekerja)
         .then((result) => {
             if(result.length === 0) {
                 console.log('perekrut not found')
@@ -67,6 +66,9 @@ io.on('connection', (socket) => {
         .catch((err) => {
             console.log(err)
         })
+    })
+    socket.on('join-room', (payload) => {
+        socket.join(payload)
     })
 })
 

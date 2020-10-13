@@ -56,7 +56,31 @@ const hire = {
             db.query(`SELECT perekrut.idperekrut, namaperekrut, emailperekrut, phoneperekrut, namaperusahaan, imageperekrut FROM hire INNER JOIN perekrut ON hire.idperekrut = perekrut.idperekrut WHERE hire.idpekerja=${idpekerja}` ,(err, result) => {
                 if(err) {
                     reject (new Error(err))
-                } resolve (result)
+                } else {
+                    resolve (result)
+                }
+            })
+        })
+    },
+    sendMessage : (payload) => {
+        return new Promise ((resolve, reject) => {
+            db.query(`INSERT INTO message (sender, receiver, message) VALUES ('${payload.sender}', '${payload.receiver}', '${payload.message}')`, (err, result) => {
+                if(err) {
+                    reject (new Error(err))
+                } else {
+                    resolve(result)
+                }
+            })
+        })
+    },
+    getMessages : (payload) => {
+        return new Promise ((resolve, reject) => {
+            db.query((err, result) => {
+                if (err) {
+                    reject(new Error(err))
+                } else {
+                    resolve(result)
+                }
             })
         })
     }
