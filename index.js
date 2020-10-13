@@ -67,6 +67,9 @@ io.on('connection', (socket) => {
             console.log(err)
         })
     })
+    socket.on('send-message', (payload) => {
+        console.log(payload)
+    })
     socket.on('join-room', (payload) => {
         socket.join(payload)
     })

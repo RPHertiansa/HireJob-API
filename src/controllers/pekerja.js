@@ -137,6 +137,8 @@ const pekerja = {
                           const data = {
                             idpekerja: userData.idpekerja,
                             namapekerja: userData.namapekerja,
+                            emailpekerja: userData.emailpekerja,
+                            status: 'pekerja',
                             token: token,
                             refreshToken: refreshToken
                           }

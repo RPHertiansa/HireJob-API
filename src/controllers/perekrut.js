@@ -137,6 +137,7 @@ const perekrut = {
                                         .then(() => {
                                             const data = {
                                                 idperekrut: userData.idperekrut,
+                                                namaperekrut: userData.namaperekrut,
                                                 emailperekrut: userData.emailperekrut,
                                                 status: 'perekrut',
                                                 token: token,
@@ -149,6 +150,7 @@ const perekrut = {
                                     }else{
                                         const data = {
                                             idperekrut: userData.idperekrut,
+                                            namaperekrut: userData.namaperekrut,
                                             emailperekrut: userData.emailperekrut,
                                             status: 'perekrut',
                                             token: token,
