@@ -1,4 +1,7 @@
 # HireJob-API
+HireJob is a web application dedicated to make jobseeking process more simple. Jobseekers can make their profile as excellent as they can, while recruiters can pick the best them based on their profile and send offering email.
+
+This repository is a backend for HireJob App and to make Restful API. It is built using ExpressJS and MySQL as database. The backend is live on cloud using Amazon EC2 Web Service. Data stored in this server is encrypted using bcrypt to ensure digital security and only authorized users can access.
 
 # REGISTER PEKERJA
 
