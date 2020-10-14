@@ -75,7 +75,7 @@ const hire = {
     },
     getMessages : (payload) => {
         return new Promise ((resolve, reject) => {
-            db.query((err, result) => {
+            db.query(`SELECT * FROM message WHERE (sender = '${payload.sender}' AND receiver = '${payload.receiver}') OR (sender = '${payload.receiver}' AND receiver = '${payload.sender}') `,(err, result) => {
                 if (err) {
                     reject(new Error(err))
                 } else {

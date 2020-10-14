@@ -41,6 +41,10 @@ app.use('/api/v1/portofolio', portofolioRouter)
 io.on('connection', (socket) => {
     console.log('user connected')
 
+    socket.on('join-room', (payload) => {
+        socket.join(payload)
+    })
+
     socket.on('get-all-pekerja', (payload) => {
         hireModel.cariPekerja(payload.idperekrut)
         .then((result) => {
@@ -68,11 +72,23 @@ io.on('connection', (socket) => {
         })
     })
     socket.on('send-message', (payload) => {
-        console.log(payload)
+        hireModel.sendMessage(payload)
+        .then((result) => {
+            console.log(`${payload.sender} ${payload.receiver} ${payload.message}`)
+            // io.emit('chat-list', payload)
+            // io.to(receiver).emit('chatting', payload)
+            hireModel.getMessages(payload)
+            .then((result) => {
+                io.emit('get-history', result)
+                console.log(result.message)
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        // io.emit('test', payload)
     })
-    socket.on('join-room', (payload) => {
-        socket.join(payload)
-    })
+    
 })
 
 server.listen(PORT, () => {
