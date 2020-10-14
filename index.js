@@ -71,22 +71,31 @@ io.on('connection', (socket) => {
             console.log(err)
         })
     })
+
+    socket.on('get-history', (payload) => {
+        hireModel.getMessages(payload)
+        .then((result) => {
+            console.log(result)
+            io.to(payload.sender).emit('historyMessage', result)
+        }).catch((err)=> {
+            console.log(new Error(err))
+        })
+    })
+
     socket.on('send-message', (payload) => {
         hireModel.sendMessage(payload)
         .then((result) => {
             console.log(`${payload.sender} ${payload.receiver} ${payload.message}`)
-            // io.emit('chat-list', payload)
-            // io.to(receiver).emit('chatting', payload)
-            hireModel.getMessages(payload)
-            .then((result) => {
-                io.emit('get-history', result)
-                console.log(result.message)
+            const room = payload.receiver
+            io.to(room).emit('private-message', {
+                sender: payload.sender,
+                msg: payload.message,
+                receiver: room
             })
         })
         .catch((err) => {
             console.log(err)
         })
-        // io.emit('test', payload)
     })
     
 })
