@@ -24,6 +24,11 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
 
+app.use(express.static(path.join(__dirname, './dist')))
+app.use('*', (req,res) => {
+    res.sendFile(__dirname, './dist/index.html')
+})
+
 app.use(express.static('src/uploads'))
 app.use(express.static('src/views'))
 
